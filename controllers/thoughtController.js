@@ -1,7 +1,7 @@
 const { Thought, User } = require("../models");
 
 const thoughtController = {
-  getAllThought(req, res) {
+  getThoughts(req, res) {
     Thought.find({})
       .populate({
         path: "reactions",
@@ -16,7 +16,7 @@ const thoughtController = {
       });
   },
 
-  getThoughtById({ params }, res) {
+  getSingleThought({ params }, res) {
     console.log(params);
     Thought.findOne({ _id: params.thoughtId })
       .select("-__v")
@@ -29,7 +29,7 @@ const thoughtController = {
   },
 
   // add thought to user
-  addThought({ params, body }, res) {
+  createThought({ params, body }, res) {
     Thought.create(body)
       .then(({ _id }) => {
         return User.findOneAndUpdate(
@@ -94,7 +94,7 @@ const thoughtController = {
   },
 
   // remove thought
-  removeThought({ params }, res) {
+  deleteThought({ params }, res) {
     Thought.findOneAndDelete({ _id: params.thoughtId })
       .then((deletedThought) => {
         console.log("DELETED THOUGHT________", deletedThought);
