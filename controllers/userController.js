@@ -17,24 +17,31 @@ const userController = {
       });
   },
   // get one user by id
-  getSingleUser({ params }, res) {
-    User.findOne({ _id: params.id })
-      .populate({
-        path: "thoughts",
-        select: "-__v",
-      })
-      .select("-__v")
-      .then((dbUserData) => {
-        if (!dbUserData) {
-          res.status(404).json({ message: "No user found with this id!" });
-          return;
-        }
-        res.json(dbUserData);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json(err);
-      });
+  async getSingleUser (req, res) {
+    try {
+    const dbUserData = await User.findOne({ _id: req.params.id })
+    .select("-__v")  
+    .populate(
+       "thoughts"
+      )
+      .populate(
+        "friends"
+      )
+      res.status(200).json(dbUserData)
+    } catch(err) {
+      res.status(400).json(err)
+    }
+      // .then((dbUserData) => {
+      //   if (!dbUserData) {
+      //     res.status(404).json({ message: "No user found with this id!" });
+      //     return;
+      //   }
+      //   res.json(dbUserData);
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      //   res.status(400).json(err);
+      // });
   },
 
   // create User
@@ -42,6 +49,7 @@ const userController = {
     User.create(body)
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => res.status(400).json(err));
+      
   },
 
   // update user by id
