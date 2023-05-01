@@ -21,7 +21,7 @@
 
 ## **Installation** ⚙️
 
-Visit the [repository](https://github.com/paullsshin/weather-wizard) to reference: any materials, the process in developing the web page, and the people involved in creating the web page.
+Visit the [repository](https://github.com/paullsshin/lets-get-to-networking) to reference: any materials, the process in developing the web page, and the people involved in creating the web page.
 <hr>
 
 ### **Usage** 💻
